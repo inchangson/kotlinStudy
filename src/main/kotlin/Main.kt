@@ -19,7 +19,7 @@ fun example1(){
     }
 }
 
-fun launchInGlobalScope(){
+fun launchInGlobalScope() {
     GlobalScope.launch {
         log("coroutine started")
     }
@@ -49,23 +49,40 @@ fun exampleAsync(){
 fun exampleDispatcher() {
     runBlocking<Unit> {
         launch {   // 인자를 안 넘겨주면 상위 코루틴의 Context 를 가짐
-            println("main runBlocking       : 나는 ${Thread.currentThread().name} 에서 돌아")
+            log("main runBlocking")
         }
         launch(Dispatchers.Unconfined) {  // 별도로 지정을 안 해줌
-            println("Unconfined             : 나는 ${Thread.currentThread().name} 에서 돌아")
+            log("Unconfined")
         }
         launch(Dispatchers.Default) {  // DefaultDispatchers 등록
-            println("Default                : 나는 ${Thread.currentThread().name} 에서 돌아")
+            log("Default")
         }
-        launch(newSingleThreadContext("H43RO_Thread")) {  // 새로운 쓰레드 생성
-            println("newSingleThreadContext : 나는 ${Thread.currentThread().name} 에서 돌아")
+        launch(newSingleThreadContext("KT_Thread")) {  // 새로운 쓰레드 생성
+            log("newSingleThreadContext")
         }
     }
 }
 
+fun exampleJobCancel(){
+    log("main started")
+    val job = GlobalScope.launch() {
+        repeat(10) {
+            delay(1000L)
+            log("I'm working.")
+        }
+    }
+
+    runBlocking {
+        delay(3000L)
+        job.cancel()
+    }
+    log("main terminated")
+}
+
 fun main(){
 //    example1()
-//    exampleDispatcher()
+    exampleDispatcher()
 //    exampleLaunch()
 //    exampleAsync()
+//    exampleJobCancel()
 }
