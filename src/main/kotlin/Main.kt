@@ -49,19 +49,22 @@ fun sumAll(){
     }
 }
 
-suspend fun shower(){
-    println("coroutine: 샤워중")
-}
-
-fun main(){
-    runBlocking{
-        println("main : 눈을 뜬다")
-        launch {
-            shower()
-            breakfast()
-            rideBus()
-            arriveCompany()
-        }
+//B
+fun countdown() = sequence {
+    var n = 10
+    while(n > 0){
+        yield(n)         // ...(ㄱ)
+        n--
     }
 }
 
+fun example1(){
+    for (i in countdown()){ // ...(ㄴ), (ㄴ'), (ㄴ'')...
+        println(i)
+    }
+}
+
+fun main(){
+    example1()
+
+}
