@@ -28,7 +28,7 @@ fun exampleLaunch(){
     log("main started")
     launchInGlobalScope()
     log("launchInGlobalScope() executed")
-    Thread.sleep(5000L)
+    Thread.sleep(500L)
     log("main() terminated")
 }
 
@@ -81,7 +81,7 @@ fun exampleJobCancel(){
 
 fun main(){
 //    example1()
-    exampleDispatcher()
+//    exampleDispatcher()
 //    exampleLaunch()
 //    exampleAsync()
 //    exampleJobCancel()
